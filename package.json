@@ -1,0 +1,52 @@
+{
+  "name": "Filmy",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "react-native run-android",
+    "test": "jest",
+    "buildRelease": "cd android && ./gradlew assembleRelease",
+    "installRelease": "cd android && ./gradlew installRelease",
+    "doc": "./node_modules/.bin/esdoc"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
+  "notused": {
+    "react-native-camera": "^0.12.0",
+    "react-native-material-kit": "^0.5.1",
+    "react-native-material-design": "^0.3.7",
+    "react-native-material-design-styles": "^0.2.7",
+    "react-native-elements": "^0.18.5",
+    "react-router-navigation": "^1.0.0-rc.3"
+  },
+  "dependencies": {
+    "alt": "^0.18.6",
+    "buffer": "^5.0.8",
+    "moment": "^2.20.1",
+    "native-base": "^2.3.5",
+    "react": "^16.0.0",
+    "react-native": "^0.51.0",
+    "react-native-material-ui": "^1.18.0",
+    "react-native-network-info": "^3.0.0",
+    "react-native-paper": "0.0.8",
+    "react-native-ssdp": "^2.8.2",
+    "react-native-udp": "^2.3.1",
+    "react-native-vector-icons": "^4.4.3",
+    "react-navigation": "^1.0.0-beta.22",
+    "react-router-native": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-jest": "22.0.4",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.0.4",
+    "react-doc-generator": "^1.2.5",
+    "react-test-renderer": "16.0.0"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
