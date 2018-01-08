@@ -26,6 +26,7 @@
   "dependencies": {
     "alt": "^0.18.6",
     "buffer": "^5.0.8",
+    "color": "^2.0.1",
     "moment": "^2.20.1",
     "native-base": "^2.3.5",
     "react": "^16.2.0",
@@ -37,7 +38,8 @@
     "react-native-udp": "^2.3.1",
     "react-native-vector-icons": "^4.4.3",
     "react-navigation": "^1.0.0-beta.22",
-    "react-router-native": "^4.2.0"
+    "react-router-native": "^4.2.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-jest": "22.0.4",

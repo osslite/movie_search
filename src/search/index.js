@@ -1,4 +1,5 @@
 // https://github.com/xotahal/react-native-material-ui
+// https://github.com/oblador/react-native-vector-icons
 
 import React, {Component} from 'react';
 import {
@@ -22,7 +23,8 @@ import {
     PermissionsAndroid,
     NativeModules,
     DrawerLayoutAndroid,
-    BackAndroid
+    BackAndroid,
+    BackHandler
 } from 'react-native';
 import {NativeRouter, Route, Link} from 'react-router-native';
 import {
@@ -45,7 +47,10 @@ import {
     Avatar
 } from 'react-native-material-ui';
 import {Icon as IconIon} from 'react-native-vector-icons/Ionicons';
-import {Provider as PaperProvider} from 'react-native-paper';
+import {
+    Provider as PaperProvider,
+    DefaultTheme
+} from 'react-native-paper';
 
 const UIManager = NativeModules.UIManager;
 const uiTheme = {
@@ -115,11 +120,11 @@ class Search extends Component {
         if (UIManager.setLayoutAnimationEnabledExperimental) {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
-        BackAndroid.addEventListener('hardwareBackPress', this.handlesBackButton);
+        BackHandler.addEventListener('hardwareBackPress', this.handlesBackButton);
     }
 
     componentWillUnmount() {
-        BackAndroid.removeEventListener('hardwareBackPress', this.handlesBackButton);
+        BackHandler.removeEventListener('hardwareBackPress', this.handlesBackButton);
     }
 
     setDrawerState = (isOpen) => {

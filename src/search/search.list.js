@@ -118,7 +118,7 @@ class SearchList extends Component {
         // '{\n  "address": "192.168.1.118",\n  "port": 51002,\n  "family": "IPv4",\n  "size": 374\n}'
         // 12-31 18:09:56.103 19348-19379/? I/ReactNativeJS: 'Got a response to an m-search:\n%d\n%s\n%s', 200, '{\n  "CACHE-CONTROL": "max-age=1800",\n  "DATE": "Thu, 01 Jan 1970 03:57:53 GMT",\n  "EXT": "",\n  "LOCATION": "http://192.168.1.100:37904/MediaRenderer1.xml",\n  "SERVER": "Linux/2.6.35 UPnP/1.0 DLNADOC/1.50 INTEL_NMPR/2.0 LGE_DLNA_SDK/1.5.0",\n  "ST": "urn:schemas-upnp-org:device:MediaRenderer:1",\n  "USN": "uuid:2393a424-1dd2-11b2-97a3-98b6da162a0a::urn:schemas-upnp-org:device:MediaRenderer:1"\n}',
         // '{\n  "address": "192.168.1.100",\n  "port": 1900,\n  "family": "IPv4",\n  "size": 368\n}'
-    }
+    };
 
     fetchItems() {
         const {name} = this.state;
