@@ -75,6 +75,7 @@ module.exports = StyleSheet.create({
         marginBottom: 5,
     },
     grid: {
+        flex: 1,
         width: '100%',
         marginBottom: 5,
     },

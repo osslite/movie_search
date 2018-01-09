@@ -23,7 +23,8 @@ import {
     NativeModules,
     ActivityIndicator,
     Dimensions,
-    Linking
+    Linking,
+    Picker
 } from 'react-native';
 import {NativeRouter, Route, Link} from 'react-router-native';
 import {
@@ -38,6 +39,7 @@ import SearchUpnp from './search.upnp';
 import {PageSearchDetail} from './search.constants';
 import {
     COLOR,
+    Dialog,
     ThemeProvider,
     ListItem,
     Subheader,
@@ -61,7 +63,8 @@ class SearchList extends Component {
             name: null,
             fetching: false,
             itemsCount: null,
-            renderers: []
+            renderers: [],
+            renderer: null
         };
     }
 
@@ -128,11 +131,11 @@ class SearchList extends Component {
             ToastAndroid.show("chybi zadani", ToastAndroid.SHORT);
             return;
         }
-        this.setState({fetching: true});
-        ToastAndroid.show(`vyhledam '${name}'`, ToastAndroid.SHORT);
+        // ToastAndroid.show(`vyhledam '${name}'`, ToastAndroid.SHORT);
 
         const searchDao = new SearchDao();
 
+        //PREDELAT na PROMISE
         searchDao.fetchItems(name, movies => {
             console.log("fetched", movies.data.length);
 
@@ -155,6 +158,13 @@ class SearchList extends Component {
         });
     }
 
+    fetchItemsAsync = () => {
+        this.setState({fetching: true});
+        setTimeout(() => {
+            this.fetchItems();
+        }, 200);
+    }
+
     clearItems() {
         this.setState({
             data: [],
@@ -166,7 +176,7 @@ class SearchList extends Component {
     }
 
     render() {
-        const {fetching, data, itemsCount} = this.state;
+        const {fetching, data, itemsCount, renderers} = this.state;
         // Linking.openURL('https://www.linkedin.com/in/pablodarde');
 
         return (
@@ -178,17 +188,28 @@ class SearchList extends Component {
                         autoFocus: true,
                         placeholder: 'napr. teor tres',
                         onChangeText: (name) => this.setState({name}),
-                        onSubmitEditing: (evt) => this.fetchItems(evt),
+                        onSubmitEditing: (evt) => {
+                            this.fetchItemsAsync(evt);
+                        },
                         onSearchClosed: () => this.clearItems()
                     }}
                 />
+                <ProgressBarAndroid styleAttr="Horizontal" progress={1} animating={fetching}
+                                    style={{padding: 0, margin: 0, height: 4}}/>
 
-                {false &&
-                <ProgressBarAndroid styleAttr="LargeInverse" animating={fetching}/>
-                }
-                {false && data && data.length > 0 &&
-                <Subheader text={'Zaznamu: ' + itemsCount}/>
-                }
+                <Picker
+                    enabled={renderers.length > 0}
+                    prompt='Televize'
+                    mode="dropdown"
+                    style={{}}
+                    selectedValue={this.state.renderer}
+                    onValueChange={(itemValue, itemIndex) => this.setState({renderer: itemValue})}>
+                    {
+                        renderers.map(item => <Picker.Item label={item.friendlyName} key={item.friendlyName}
+                                                           value={item.friendlyName + '(' + item.manufacturer + '):' + item.address}/>)
+                    }
+                </Picker>
+
                 {data &&
                 <FlatList
                     extraData={this.state}
@@ -217,7 +238,10 @@ class SearchList extends Component {
                         width: 70,
                         height: 100
                     },
-                    rightElementContainer: {}
+                    rightElementContainer: {
+                        width: 40,
+                        justifyContent: 'center'
+                    }
                 }}
                 onLeftElementPress={() => navigation.navigate(PageSearchDetail, {item})}
                 leftElement={
@@ -245,7 +269,10 @@ class SearchList extends Component {
                     console.log('navigate ' + PageSearchDetail);
                     navigation.navigate(PageSearchDetail, {item});
                 }}
-                rightElement={(renderers.length > 0 && {menu: {labels: renderers.map(item => item.friendlyName + '(' + item.manufacturer + '):' + item.address)}})}
+                rightElement={renderers.length > 0 ? <Icon size={24} name='play-circle-outline'/> : {}}
+                onRightElementPress={() => {
+                    console.log('navigate ' + PageSearchDetail);
+                }}
             />
         );
     }

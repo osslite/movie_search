@@ -159,23 +159,21 @@ class Search extends Component {
 
     render() {
         return (
-            <PaperProvider>
-
                 <ThemeProvider uiTheme={uiTheme}>
                     <DrawerLayoutAndroid
                         drawerWidth={300}
+                        keyboardDismissMode='on-drag'
                         ref={(drawerElement) => {
                             this.DRAWER = drawerElement;
                         }}
                         drawerPosition={DrawerLayoutAndroid.positions.left}
                         onDrawerOpen={() => this.setDrawerState(true)}
                         onDrawerClose={() => this.setDrawerState(false)}
-                        renderNavigationView={() => <MyDrawer/>}
+                        renderNavigationView={() => {}}
                     >
                         <SearchNavigator ref={nav => this.navigator = nav}/>
                     </DrawerLayoutAndroid>
                 </ThemeProvider>
-            </PaperProvider>
         );
     }
 }
