@@ -159,11 +159,11 @@ class SearchList extends Component {
     }
 
     fetchItemsAsync = () => {
-        this.setState({fetching: true});
         setTimeout(() => {
             this.fetchItems();
         }, 200);
-    }
+        this.setState({fetching: true});
+    };
 
     clearItems() {
         this.setState({
@@ -195,13 +195,13 @@ class SearchList extends Component {
                     }}
                 />
                 <ProgressBarAndroid styleAttr="Horizontal" progress={1} animating={fetching}
-                                    style={{padding: 0, margin: 0, height: 4}}/>
+                                    style={[appStyle.progressBar]}/>
 
                 <Picker
                     enabled={renderers.length > 0}
                     prompt='Televize'
                     mode="dropdown"
-                    style={{}}
+                    style={appStyle.upnpDevices}
                     selectedValue={this.state.renderer}
                     onValueChange={(itemValue, itemIndex) => this.setState({renderer: itemValue})}>
                     {

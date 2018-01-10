@@ -79,4 +79,10 @@ module.exports = StyleSheet.create({
         width: '100%',
         marginBottom: 5,
     },
+    progressBar: {
+        top: -6
+    },
+    upnpDevices: {
+        top: -12
+    }
 });
