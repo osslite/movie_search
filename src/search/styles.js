@@ -80,9 +80,12 @@ module.exports = StyleSheet.create({
         marginBottom: 5,
     },
     progressBar: {
+        /* dodelat styl pro VIEW, velikost atd.*/
         top: -6
     },
     upnpDevices: {
-        top: -12
+        /* dodelat styly, neni to hezke*/
+        top: -12,
+        height: 30
     }
 });

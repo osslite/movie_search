@@ -194,8 +194,9 @@ class SearchList extends Component {
                         onSearchClosed: () => this.clearItems()
                     }}
                 />
-                <ProgressBarAndroid styleAttr="Horizontal" progress={1} animating={fetching}
-                                    style={[appStyle.progressBar]}/>
+                <View style={appStyle.progressBar}>
+                    <ProgressBarAndroid styleAttr="Horizontal" progress={1} animating={fetching}/>
+                </View>
 
                 <Picker
                     enabled={renderers.length > 0}
