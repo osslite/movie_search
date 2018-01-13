@@ -15,17 +15,15 @@ const mapNavigationStateParamsToProps = (SomeComponent) => {
     return class extends SomeComponent {
         // everything else, call as SomeComponent
         render() {
-            const {navigation} = this.props;
-            console.log("navigation=",navigation);
-            const {state: {params}} = navigation;
-            return <SomeComponent {...this.props} {...params} />
+            console.log('navigace render:',this.props);
+            return <SomeComponent {...this.props} {...this.props.screenProps}/>
         }
     }
 };
 
 const routeConfig = {};
 routeConfig[PageSearch] = {
-    screen: SearchList,
+    screen: mapNavigationStateParamsToProps(SearchList),
     navigationOptions: (props) => ({
         headerTitle: 'Hledani',
         drawerLabel: 'Hledani',
@@ -33,7 +31,7 @@ routeConfig[PageSearch] = {
     })
 };
 routeConfig[PageSearchDetail] = {
-    screen: SearchDetail,
+    screen: mapNavigationStateParamsToProps(SearchDetail),
     navigationOptions: (props) => ({
         headerTitle: 'Popis',
         drawerLabel: 'Popis',

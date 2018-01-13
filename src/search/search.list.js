@@ -177,12 +177,14 @@ class SearchList extends Component {
 
     render() {
         const {fetching, data, itemsCount, renderers} = this.state;
+        const {onMenu} = this.props;
         // Linking.openURL('https://www.linkedin.com/in/pablodarde');
 
         return (
             <View style={{flex: 1}}>
                 <Toolbar
                     leftElement="menu"
+                    onLeftElementPress={onMenu}
                     centerElement=""
                     searchable={{
                         autoFocus: true,

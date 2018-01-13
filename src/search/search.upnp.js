@@ -10,7 +10,8 @@ class SearchUpnp {
     constructor(updateFc) {
         this.client = new Client({
             //adInterval Number advertise event frequency (ms). Default: 10 sec.
-            adInterval: 1000
+            adInterval: 1000,
+            ssdpSig: 'Muj ssdp clientik'
         });
         this.client.on('response', (headers, code, rinfo) => updateFc(headers, code, rinfo));
         this.client.on('notify', function (args) {
@@ -25,7 +26,9 @@ class SearchUpnp {
 
     search = () => {
         console.log('uPnP searching');
-        this.client.search('ssdp:all');
+        // ST: urn:schemas-upnp-org:device:MediaRenderer:1
+        // this.client.search('urn:schemas-upnp-org:device:MediaRenderer:1');
+        this.client.search('ssdp:all');//ssdp:alive, ssdp:byebye
         //stop after 10sec
         // setTimeout(() => {
         //     this.stop();

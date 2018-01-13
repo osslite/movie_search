@@ -133,8 +133,8 @@ class Search extends Component {
         });
     };
 
-    showDrawer = (show) => {
-        if (show) {
+    showDrawer = () => {
+        if (this.state.drawerClosed) {
             this.DRAWER.openDrawer();
         } else {
             this.DRAWER.closeDrawer();
@@ -159,21 +159,22 @@ class Search extends Component {
 
     render() {
         return (
-                <ThemeProvider uiTheme={uiTheme}>
-                    <DrawerLayoutAndroid
-                        drawerWidth={300}
-                        keyboardDismissMode='on-drag'
-                        ref={(drawerElement) => {
-                            this.DRAWER = drawerElement;
-                        }}
-                        drawerPosition={DrawerLayoutAndroid.positions.left}
-                        onDrawerOpen={() => this.setDrawerState(true)}
-                        onDrawerClose={() => this.setDrawerState(false)}
-                        renderNavigationView={() => {}}
-                    >
-                        <SearchNavigator ref={nav => this.navigator = nav}/>
-                    </DrawerLayoutAndroid>
-                </ThemeProvider>
+            <ThemeProvider uiTheme={uiTheme}>
+                <DrawerLayoutAndroid
+                    drawerWidth={300}
+                    keyboardDismissMode='on-drag'
+                    ref={(drawerElement) => {
+                        this.DRAWER = drawerElement;
+                    }}
+                    drawerPosition={DrawerLayoutAndroid.positions.left}
+                    onDrawerOpen={() => this.setDrawerState(true)}
+                    onDrawerClose={() => this.setDrawerState(false)}
+                    renderNavigationView={() => {
+                    }}
+                >
+                    <SearchNavigator ref={nav => this.navigator = nav} screenProps={{onMenu: this.showDrawer}}/>
+                </DrawerLayoutAndroid>
+            </ThemeProvider>
         );
     }
 }
