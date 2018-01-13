@@ -1,5 +1,6 @@
 // https://reactnavigation.org/docs/navigators/
 
+import React from 'react';
 import {
     StackNavigator,
     TabNavigator,
@@ -32,7 +33,7 @@ const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
 
         // everything else, call as SomeComponent
         render() {
-            console.log('navigace render:', msg, this.props);
+            // console.log('navigace render:', msg, this.props);
             return <SomeComponent {...this.props} {...this.props.screenProps}/>
         }
     }

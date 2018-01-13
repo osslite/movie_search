@@ -29,12 +29,6 @@ import {
     TouchableHighlight
 } from 'react-native';
 import {NativeRouter, Route, Link} from 'react-router-native';
-import {
-    StackNavigator,
-    TabNavigator,
-    DrawerNavigator,
-    SafeAreaView
-} from 'react-navigation';
 import * as appStyle from './styles';
 import SearchDao from './search.dao';
 import UpnpClient from '../upnp/client';
