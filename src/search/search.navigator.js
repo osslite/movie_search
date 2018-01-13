@@ -1,6 +1,5 @@
 // https://reactnavigation.org/docs/navigators/
 
-import React, {Component} from 'react';
 import {
     StackNavigator,
     TabNavigator,
@@ -10,9 +9,7 @@ import {
 import SearchDetail from './search.detail';
 import SearchList from './search.list';
 import {PageSearch, PageSearchDetail} from './search.constants';
-import {BackHandler, ToastAndroid} from "react-native";
-
-const SCREEN_SEARCH = 'search';
+import {BackHandler} from "react-native";
 
 const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
     return class extends SomeComponent {
@@ -27,7 +24,7 @@ const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
         handlesBackButton = () => {
             console.log('backhandler uvnitr INVOKED', this.props.navigation, this.state && this.state.routes);
             this.props.navigation.goBack();
-            if (msg === SCREEN_SEARCH) {
+            if (msg === PageSearch) {
                 return false;
             }
             return true;
@@ -43,7 +40,7 @@ const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
 
 const routeConfig = {};
 routeConfig[PageSearch] = {
-    screen: mapNavigationStateParamsToProps(SearchList, SCREEN_SEARCH),
+    screen: mapNavigationStateParamsToProps(SearchList, PageSearch),
     navigationOptions: (props) => ({
         headerTitle: 'Hledani',
         drawerLabel: 'Hledani',
@@ -51,7 +48,7 @@ routeConfig[PageSearch] = {
     })
 };
 routeConfig[PageSearchDetail] = {
-    screen: mapNavigationStateParamsToProps(SearchDetail, 'detail'),
+    screen: mapNavigationStateParamsToProps(SearchDetail, PageSearchDetail),
     navigationOptions: (props) => ({
         headerTitle: 'Popis',
         drawerLabel: 'Popis',

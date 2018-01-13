@@ -1,2 +1,2 @@
-export const PageSearch = 'Main';
-export const PageSearchDetail = 'Detail';
+export const PageSearch = 'search';
+export const PageSearchDetail = 'detail';
