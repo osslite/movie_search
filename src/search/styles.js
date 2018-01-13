@@ -79,6 +79,9 @@ module.exports = StyleSheet.create({
         width: '100%',
         marginBottom: 5,
     },
+    gridLeft: {
+
+    },
     progressBar: {
         /* dodelat styl pro VIEW, velikost atd.*/
         top: -6

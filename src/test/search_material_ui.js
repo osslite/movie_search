@@ -129,7 +129,7 @@ class Search extends Component {
                     }}
                     searchable={{
                         autoFocus: true,
-                        placeholder: 'Search',
+                        placeholder: 'App',
                     }}
                     onLeftElementPress={() => this.props.navigation.goBack()}
                     centerElement="List item"
@@ -286,6 +286,6 @@ class Search2 extends Component {
     }
 }
 
-// Search.propTypes = {};
+// App.propTypes = {};
 
 export default Search2;

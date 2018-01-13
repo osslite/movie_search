@@ -40,6 +40,12 @@ class SearchDetail extends Component {
         const {navigation} = this.props;
         const {item} = navigation.state.params;
 
+        const notUSed = (<Button
+            raised primary
+            onPress={() => navigation.goBack()}
+            text="Zpet"
+        />);
+
         return (
             <View style={{flex: 1}}>
                 <StatusBar
@@ -62,11 +68,6 @@ class SearchDetail extends Component {
                     <Divider/>
                     <Text>{item.description}</Text>
                     <Divider/>
-                    <Button
-                        raised primary
-                        onPress={() => navigation.goBack()}
-                        text="Zpet"
-                    />
                 </ScrollView>
             </View>
         );

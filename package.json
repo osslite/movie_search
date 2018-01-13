@@ -21,6 +21,7 @@
     "react-native-material-design": "^0.3.7",
     "react-native-material-design-styles": "^0.2.7",
     "react-native-elements": "^0.18.5",
+    "native-base": "^2.3.5",
     "react-router-navigation": "^1.0.0-rc.3"
   },
   "dependencies": {
@@ -28,7 +29,6 @@
     "buffer": "^5.0.8",
     "color": "^2.0.1",
     "moment": "^2.20.1",
-    "native-base": "^2.3.5",
     "react": "^16.2.0",
     "react-native": "^0.51.0",
     "react-native-material-ui": "^1.19.0",
@@ -36,8 +36,8 @@
     "react-native-paper": "0.0.8",
     "react-native-ssdp": "^2.8.2",
     "react-native-udp": "^2.3.1",
-    "react-native-vector-icons": "^4.4.3",
-    "react-navigation": "^1.0.0-beta.22",
+    "react-native-vector-icons": "^4.5.0",
+    "react-navigation": "^1.0.0-beta.26",
     "react-router-native": "^4.2.0",
     "uuid": "^3.1.0"
   },

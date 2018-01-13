@@ -24,7 +24,9 @@ import {
     ActivityIndicator,
     Dimensions,
     Linking,
-    Picker
+    Picker,
+    TouchableOpacity,
+    TouchableHighlight
 } from 'react-native';
 import {NativeRouter, Route, Link} from 'react-router-native';
 import {
@@ -35,7 +37,7 @@ import {
 } from 'react-navigation';
 import * as appStyle from './styles';
 import SearchDao from './search.dao';
-import SearchUpnp from './search.upnp';
+import UpnpClient from '../upnp/client';
 import {PageSearchDetail} from './search.constants';
 import {
     COLOR,
@@ -52,7 +54,6 @@ import {
 
 class SearchList extends Component {
 
-    _keyExtractor = (item, index) => item.id;
     searchUpnp;
     timerId;
 
@@ -70,17 +71,17 @@ class SearchList extends Component {
 
     componentDidMount = () => {
         console.log('mounted MOVIES');
-        this.searchUpnp = new SearchUpnp(this.updateRenderers);
+        this.searchUpnp = new UpnpClient(this.updateRenderers);
         this.timerId = setInterval(() => {
             this.searchUpnp.search()
-        }, 10000);
-    }
+        }, 2000);
+    };
 
     componentWillUnmount = () => {
         console.log('unmounting MOVIES');
         clearInterval(this.timerId);
         this.searchUpnp.stop();
-    }
+    };
 
     updateRenderers = (headers, code, rinfo) => {
         // POZOR!!!!!!
@@ -90,14 +91,14 @@ class SearchList extends Component {
         const renderers = this.state.renderers.slice();
         const exist = renderers.filter((item) => rinfo.address == item.address);
 
-        console.log('Got a response to an m-search:\n%d\n%s\n%s', code, JSON.stringify(headers, null, '  '), '----', JSON.stringify(rinfo, null, '  '))
+        // console.log('Got a response to an m-search:\n%d\n%s\n%s', code, JSON.stringify(headers, null, '  '), '----', JSON.stringify(rinfo, null, '  '))
         if (exist.length > 0) {
             return;
         }
         if (!headers.ST.contains('urn:schemas-upnp-org:device:MediaRenderer') && !headers.ST.contains('urn:schemas-upnp-org:service:AVTransport')) {
             return;
         }
-        ToastAndroid.show(`${headers.SERVER}`, ToastAndroid.SHORT);
+        // ToastAndroid.show(`${headers.SERVER}`, ToastAndroid.SHORT);
 
         const xmlUrl = headers.LOCATION;
         console.log('HTTP fetching', xmlUrl);
@@ -219,7 +220,7 @@ class SearchList extends Component {
                     data={data}
                     renderItem={(obj) => this.renderItem(obj)}
                     style={appStyle.grid}
-                    keyExtractor={this._keyExtractor}
+                    keyExtractor={(item, index) => item.id}
                 ></FlatList>}
             </View>
         );
@@ -235,46 +236,52 @@ class SearchList extends Component {
                 numberOfLines="dynamic"
                 style={{
                     container: {height: 100},
+                    contentViewContainer: {},
                     leftElementContainer: {
                         marginLeft: 5,
                         padding: 0,
                         width: 70,
                         height: 100
                     },
+                    centerElementContainer: {},
                     rightElementContainer: {
-                        width: 40,
-                        justifyContent: 'center'
-                    }
+                        height: 100,
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        flexDirection: 'column'
+                    },
+                    rightElement: {}
                 }}
-                onLeftElementPress={() => navigation.navigate(PageSearchDetail, {item})}
-                leftElement={
+                leftElement={(
                     (item.image &&
                         <IconToggle name="details"
                                     style={{border: 1}}
-                                    onPress={() => {
-                                        console.log('navigate ' + PageSearchDetail);
-                                        navigation.navigate(PageSearchDetail, {item});
-                                    }}>
+                        >
                             <Image source={{uri: item.image}} style={{width: 40, height: 100, minHeight: 100}}/>
                         </IconToggle>
                     )
                     ||
                     <IconToggle name="backup"
                                 style={{width: 60, height: 120, left: 0, padding: 0, alignItems: "left"}}
-                                onPress={() => navigation.navigate(PageSearchDetail, {item})}/>
-                }
+                    />
+                )}
                 centerElement={{
                     primaryText: item.name,
                     secondaryText: item.size + ' ' + item.sizeUnit + 'B',
                     tertiaryText: item.fileName,
                 }}
+                rightElement={renderers.length > 0 ? 'play-circle-outline' : {}}
+
+                onLeftElementPress={() => {
+                    console.log('onLeftElementPress() ' + PageSearchDetail);
+                    // navigation.navigate(PageSearchDetail, {item})
+                }}
                 onPress={() => {
-                    console.log('navigate ' + PageSearchDetail);
+                    console.log('onPress() ' + PageSearchDetail);
                     navigation.navigate(PageSearchDetail, {item});
                 }}
-                rightElement={renderers.length > 0 ? <Icon size={24} name='play-circle-outline'/> : {}}
                 onRightElementPress={() => {
-                    console.log('navigate ' + PageSearchDetail);
+                    console.log('onRightElementPress() ' + PageSearchDetail);
                 }}
             />
         );

@@ -3,7 +3,7 @@
 
 import {Client} from 'react-native-ssdp';
 
-class SearchUpnp {
+class UpnpClient {
 
     client;
 
@@ -52,4 +52,4 @@ class SearchUpnp {
     }
 }
 
-export default SearchUpnp;
+export default UpnpClient;

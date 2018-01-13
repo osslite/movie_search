@@ -10,12 +10,27 @@ import {
 import SearchDetail from './search.detail';
 import SearchList from './search.list';
 import {PageSearch, PageSearchDetail} from './search.constants';
+import {BackHandler, ToastAndroid} from "react-native";
 
-const mapNavigationStateParamsToProps = (SomeComponent) => {
+const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
     return class extends SomeComponent {
+        componentDidMount = () => {
+            BackHandler.addEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
+        };
+
+        componentWillUnmount = () => {
+            BackHandler.removeEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
+        };
+
+        handlesBackButton = () => {
+            console.log('backhandler uvnitr INVOKED', this.props.navigation, this.state && this.state.routes);
+            this.props.navigation.goBack();
+            return true;
+        };
+
         // everything else, call as SomeComponent
         render() {
-            console.log('navigace render:',this.props);
+            console.log('navigace render:', msg, this.props);
             return <SomeComponent {...this.props} {...this.props.screenProps}/>
         }
     }
@@ -23,7 +38,7 @@ const mapNavigationStateParamsToProps = (SomeComponent) => {
 
 const routeConfig = {};
 routeConfig[PageSearch] = {
-    screen: mapNavigationStateParamsToProps(SearchList),
+    screen: mapNavigationStateParamsToProps(SearchList, 'search'),
     navigationOptions: (props) => ({
         headerTitle: 'Hledani',
         drawerLabel: 'Hledani',
@@ -31,7 +46,7 @@ routeConfig[PageSearch] = {
     })
 };
 routeConfig[PageSearchDetail] = {
-    screen: mapNavigationStateParamsToProps(SearchDetail),
+    screen: mapNavigationStateParamsToProps(SearchDetail, 'detail'),
     navigationOptions: (props) => ({
         headerTitle: 'Popis',
         drawerLabel: 'Popis',

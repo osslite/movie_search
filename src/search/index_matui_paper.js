@@ -243,7 +243,7 @@ class Search extends Component {
     };
 }
 
-// Search.propTypes = {};
+// App.propTypes = {};
 const styles = StyleSheet.create({
     paper: {
         // padding: 8,

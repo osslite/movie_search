@@ -33,7 +33,7 @@ import {
     DrawerNavigator,
     SafeAreaView
 } from 'react-navigation';
-import SearchNavigator from './search.navigator';
+import SearchNavigator from './search/search.navigator';
 import {
     COLOR,
     ThemeProvider,
@@ -108,23 +108,20 @@ class MyDrawer extends Component {
     }
 }
 
-class Search extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            drawerClosed: true,
-        };
-    }
+class App extends Component {
+    state = {
+        drawerClosed: true,
+    };
 
-    componentWillMount() {
+    componentDidMount() {
         if (UIManager.setLayoutAnimationEnabledExperimental) {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
-        BackHandler.addEventListener('hardwareBackPress', this.handlesBackButton);
+        BackHandler.addEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
     }
 
     componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handlesBackButton);
+        BackHandler.removeEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
     }
 
     setDrawerState = (isOpen) => {
@@ -141,10 +138,11 @@ class Search extends Component {
         }
     };
 
-    handlesBackButton() {
-        if (this._navigator && this._navigator.getCurrentRoutes().length > 1) {
+    handlesBackButton = () => {
+        console.log('backhandler INVOKED');
+        if (this.navigator && this.navigator.getCurrentRoutes && this.navigator.getCurrentRoutes().length > 1) {
             try {
-                this._navigator.pop();
+                this.navigator.pop();
                 const _routes = this.state.routes.slice();
                 _routes.pop();
                 this.setState({
@@ -154,8 +152,10 @@ class Search extends Component {
             }
             return true;
         }
-        return false;
-    }
+
+        ToastAndroid.show('JEste jednou', ToastAndroid.SHORT);
+        return true;
+    };
 
     render() {
         return (
@@ -179,6 +179,4 @@ class Search extends Component {
     }
 }
 
-// Search.propTypes = {};
-
-export default Search;
+export default App;
