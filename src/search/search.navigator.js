@@ -12,6 +12,8 @@ import SearchList from './search.list';
 import {PageSearch, PageSearchDetail} from './search.constants';
 import {BackHandler, ToastAndroid} from "react-native";
 
+const SCREEN_SEARCH = 'search';
+
 const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
     return class extends SomeComponent {
         componentDidMount = () => {
@@ -25,6 +27,9 @@ const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
         handlesBackButton = () => {
             console.log('backhandler uvnitr INVOKED', this.props.navigation, this.state && this.state.routes);
             this.props.navigation.goBack();
+            if (msg === SCREEN_SEARCH) {
+                return false;
+            }
             return true;
         };
 
@@ -38,7 +43,7 @@ const mapNavigationStateParamsToProps = (SomeComponent, msg) => {
 
 const routeConfig = {};
 routeConfig[PageSearch] = {
-    screen: mapNavigationStateParamsToProps(SearchList, 'search'),
+    screen: mapNavigationStateParamsToProps(SearchList, SCREEN_SEARCH),
     navigationOptions: (props) => ({
         headerTitle: 'Hledani',
         drawerLabel: 'Hledani',

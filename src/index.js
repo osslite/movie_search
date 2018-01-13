@@ -117,12 +117,12 @@ class App extends Component {
         if (UIManager.setLayoutAnimationEnabledExperimental) {
             UIManager.setLayoutAnimationEnabledExperimental(true);
         }
-        BackHandler.addEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
+        // BackHandler.addEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
     }
 
-    componentWillUnmount() {
-        BackHandler.removeEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
-    }
+    // componentWillUnmount() {
+    //     BackHandler.removeEventListener(BackHandler.DEVICE_BACK_EVENT, this.handlesBackButton);
+    // }
 
     setDrawerState = (isOpen) => {
         this.setState({
